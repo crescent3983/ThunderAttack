@@ -1,0 +1,90 @@
+﻿@import url(https://fonts.googleapis.com/earlyaccess/cwtexyen.css);
+
+body{
+	font-family:cwTeXYen;
+	font-size:2vmin;
+}
+
+.content-hidden{
+	display: none;
+}
+
+#Invincible {
+    width: 192px;
+    height: 96px;
+    background: rgba(176,176,176,1);
+    border-color: rgba(255,0,0,1);
+    border-style: solid;
+    border-width: 4px 4px 100px 4px;
+    border-radius: 100%;
+    position: relative;
+}
+ 
+#Invincible:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    background: rgba(176,176,176,1);
+    border: 36px solid rgba(255,0,0,1);
+    border-radius: 100%;
+    width: 24px;
+    height: 24px;
+}
+ 
+#Invincible:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background: rgba(255,0,0,1);
+    border: 36px solid rgba(176,176,176,1);
+    border-radius:100%;
+    width: 24px;
+    height: 24px;
+}
+
+
+button {
+	color:black;
+	background:#00CC33;
+	border-style:solid;
+	border-color:#00FFFF;
+	width:22%;
+	height:8%;
+	font-size:3vmin;
+	font-family:fantasy, cwTeXYen;
+}
+
+button:hover {
+	color: white;
+	background:rgba(0,0,0,0.1);
+	border-style:solid;
+	border-color:lime;
+	width:22%;
+	height:8%;
+	font-size:3vmin;
+}
+
+@font-face{
+	font-family:TitleFont;
+	src: url('../../font/ALPNSCND.TTF');
+}
+
+#word{
+	font-family:TitleFont;
+}
+
+#left_panel table{
+	border-collapse:collapse;
+	font-size:2.5vmin;
+	font-family:Arial;
+	color:lime;
+}
+
+#left_panel td, #left_panel th{
+	border: 2px solid lime;
+	font-size:2.5vmin;
+	font-family:微軟正黑體;
+	color:lime;
+}

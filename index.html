@@ -1,0 +1,206 @@
+﻿<html>
+<head>
+    <meta property="og:title" content="Thunder Attack" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="http://m99.nthu.edu.tw/~s9962114/Thunder/Thunder.html" />
+    <meta property="og:image" content="http://m99.nthu.edu.tw/~s9962114/Thunder/image/game/menu.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="190" />
+    <meta property="og:image:height" content="107" />
+<title>Thunder Attack</title>
+
+<link type="text/css" href="css/structure/game.css" rel="Stylesheet" />
+<script type="text/javascript" src="./js/common.js"></script>
+<script type="text/javascript" src="./js/game/game.js"></script>
+<script type="text/javascript" src="./js/game/keyboard.js"></script>
+<script type="text/javascript" src="./js/game/cure.js"></script>
+<script type="text/javascript" src="./js/game/critical.js"></script>
+<script type="text/javascript" src="./js/game/menu.js"></script>
+<script type="text/javascript" src="./js/game/mine.js"></script>
+<script type="text/javascript" src="./js/game/enemy_1.js"></script>
+<script type="text/javascript" src="./js/game/enemy_2.js"></script>
+<script type="text/javascript" src="./js/game/enemy_3.js"></script>
+<script type="text/javascript" src="./js/game/boss.js"></script>
+</head>
+
+<body style="overflow:hidden;" bgcolor="#000000" text="#FFFFFF">
+<div>
+<div id="start" style=" position : absolute; height:80% ; width:70%; overflow:hidden; background-image:url('./image/game/menu.png'); background-size:100% 100%; border:solid chartreuse;">
+	<button id="start_btn" style=" position : absolute; top:60%; left:65%; z-index : 3000;">Mission Start</button>
+</div>
+
+<div id="stage" class="content-hidden" style=" position : absolute; height:80% ; width:70%; border:solid chartreuse; overflow:hidden; ">
+
+	<img id="background" style="position : absolute; top : -600%; height:700% ; width:100%; z-index : -1;" src="./image/game/background-1.jpg"></img>
+	<span id="plane"></span>
+	<span id="plane_2"></span>
+	<span id="plane_3"></span>
+	<span id="boss"></span>
+	<span id="fire"></span>
+	<span id="fire_2"></span>
+	<span id="fire_3"></span>
+	<span id="critical"></span>
+	<span id="enemy_fire"></span>
+	<span id="enemy_fire_2"></span>
+	<span id="enemy_fire_3"></span>
+	<span id="boss_fire"></span>
+	<span id="heal"></span>
+	<span id="gun"></span>
+	<img id="mine" style="position : absolute; top : 70%; left : 45%; height :18%; z-index : 1000;" src="./image/game/mine_yellow.gif"></img>
+	<canvas style="z-index:3000;" id='special_attack'></canvas>
+
+</div>
+
+<div id="reveal" style="position : absolute; top : 15%; left : 0%; height:80% ; width:70%;  z-index : 1800;"></div>
+
+<div id="top_panel" class="content-hidden" style="z-index : 1500; position : absolute; top: 2%; left : 1%; width:30%;">
+	
+	<table style="font-size:2.5vmin; width:100%; background-color:black; border-style:solid; border-color:white;">
+	<td style="color:#0FE1F0;">生命值 : </td><td id="hp" style="color:white;">200</td>
+	<td style="color:#0FE1F0;">分數 : </td><td id="score" style="color:white;">0</td>
+	<td style="color:#0FE1F0;">引爆符 : </td><td id="critical_weapon" style="color:white;">1</td>
+	</table>
+	
+</div>
+
+<div id="left_panel" class="content-hidden" style="z-index : 3000; position : absolute; top: 65%; left:2%; height:30% ; width:35%;">
+	<table style="height:30% ; width:35%;">
+		<caption>武器</caption>
+		<td id="weapon_1_img"><img src="./image/game/blue.jpg" style="width:15%;">電磁砲</td>
+		<td id="weapon_1_num">0</td>
+		<tr>
+		<td id="weapon_2_img"><img src="./image/game/green.jpg" style="width:15%;">綠色光束</td>
+		<td id="weapon_2_num">0</td>
+		<tr>
+		<td id="weapon_3_img"><img src="./image/game/red.jpg" style="width:15%;">紅色電擊</td>
+		<td id="weapon_3_num">0</td>
+		<tr>
+	</table>
+</div>
+
+<div style="z-index : 3000; position : absolute; top: 76%; left:62%; height:4% ; width:8%;">
+	<button id="music_switch" class="content-hidden" style="font-size:2vmin; position : absolute; height:100% ; width:100%;">Music Off</button>
+</div>
+
+<div style="z-index : 3000; position : absolute; top: 10%; left:75%;">
+	<table border="0" style="font-size:2.5vmin"  cellspacing="15">
+		<caption>預設按鍵</caption>
+		<td>前進</td>
+		<td>↑</td>
+		<tr>
+		<td>後退</td>
+		<td>↓</td>
+		<tr>
+		<td>向左</td>
+		<td>←</td>
+		<tr>
+		<td>向右</td>
+		<td>→</td>
+		<tr>
+		<td>攻擊</td>
+		<td>SPACE</td>
+		<tr>
+		<td>引爆符</td>
+		<td>X</td>
+		<tr>
+		<td>換武器</td>
+		<td>CTRL</td>
+		<tr>
+		<td>選單</td>
+		<td>Z</td>
+	</table>
+</div>
+
+<div id="bottom_panel" class="content-hidden" style="z-index : 3000; position : absolute; top: 82%; left:5%;">
+	<table border="0" style="font-size:2.5vmin;"  cellspacing="15">
+		<caption>特殊物品</caption>
+		<td><img src="./image/game/cure.gif" border=1"></td>
+		<td>急救箱</td>
+		<td colspan=2>(生命值 + 100)</td>
+		<td><img src="./image/game/weapon.gif" border=1"></td>
+		<td>工具箱</td>
+		<td colspan=2>(引爆符 + 1)</td>
+	</table>
+</div>
+
+<div id="ground" class="content-hidden" style="height:82% ; width:71%; z-index:2000; background:rgba(255,255,255,0.3); ">
+	<div id="menu" style="position : absolute; height:60% ; width:60%;  z-index:2000; top:7%; left:6%;  border-color:white; border-style:solid;  overflow:hidden; background:black; color:white;">
+		<button id="button_1">Equip</button> <button id="button_2">Control</button> <button id="button_3">Info</button>
+		<hr>
+		<div id="equip">
+			<img id="portrait" src="./image/game/mine_yellow.gif" style="position : absolute; top: 20%; left: 8%; width:22%; border-color:cyan; border-style:solid;"></img>
+			<div style="position : absolute; top: 20%; left: 40%;">
+				<p>目前資料：</p>
+				<table cellspacing="20" style="color:white; font-size:2.2vmin">
+					<td>生命值 : </td><td id="hp_2"></td>
+					<tr>
+					<td>分數 : </td><td id="score_2"></td>
+					<tr>
+					<td>速度 : </td><td id="speed">15</td>
+					<tr>
+					<td>防禦力 : </td><td id="defense">10</td>
+				</table>
+			</div>
+	
+			<div style="position : absolute; top: 75%; left: 45%; height:25%; width:30%">
+				<img id="armor_yellow" src="./image/game/armor_yellow.gif" style="border-color:lime; border-style:solid; height:30%;"></img>
+				<img id="armor_blue" src="./image/game/armor_blue.gif" style="height:30%;"></img>
+				<img id="armor_red" src="./image/game/armor_red.gif" style="height:30%;"></img>
+				<img id="armor_black" src="./image/game/armor_unknown.gif" style="height:30%;"></img>
+			</div>
+			
+			<div style="position : absolute; top: 85%; left: 50%;">
+				<p id="comment_1">金色的禮儀 : 最普通的裝甲</p>
+				<p id="comment_2" class="content-hidden">湛藍的海洋 : 擁有防禦力和速度上的優勢</p>
+				<p id="comment_3" class="content-hidden">紅魔鬼的詛咒 : 被詛咒的骨甲，防禦力低，但是乎擁有特殊力量</p>
+				<p id="comment_4" class="content-hidden">惡魔的哭號 : 神秘的護甲，似乎擁有無敵防禦的力量</p>
+				<p id="error" class="content-hidden" style="color:red;"></p>
+			</div>			
+			
+		</div>
+		<div id="option" class="content-hidden">
+			<p>設定按鍵：</p>
+			<p>方法：點擊一下後，Key in鍵盤鍵，即可更改。</p>
+				<table cellspacing="15" style="color:white;">
+					<td>前進 : </td><td><input id="up" type="text" value="↑" readonly="readonly"></input></td>
+					<td>攻擊 : </td><td><input id="attack" type="text" value="SPACE" readonly="readonly"></input></td>	
+					<tr>
+					<td>後退 : </td><td><input id="down" type="text" value="↓" readonly="readonly"></input></td>
+					<td>換武器 : </td><td><input id="weapon" type="text" value="CTRL" readonly="readonly"></input></td>	
+					<tr>
+					<td>向左 : </td><td><input id="left" type="text" value="←" readonly="readonly"></input></td>
+					<td>引爆符 : </td><td><input id="critical_attack" type="text" value="X" readonly="readonly"></input></td>	
+					<tr>
+					<td>向右 : </td><td><input id="right" type="text" value="→" readonly="readonly"></input></td>
+					<td>選單 : </td><td><input id="menu" type="text" value="Z" readonly="readonly">不能更改</td>	
+				</table>
+				
+				<input type="checkbox" id="open">功能全開</input>
+		</div>
+		
+		<div id="library" class="content-hidden">
+			<button id="enemy_1">Enemy 1</button> <button id="enemy_2">Enemy 2</button><button id="enemy_3">Enemy 3</button> <button id="enemy_4">Enemy 4</button>
+			<img id="air_1" class="content-hidden" style="position : absolute; top: 25%; left: 10%; width:20%; border-color:cyan; border-style:solid;"></img>
+			<img id="air_2" class="content-hidden" style="position : absolute; top: 25%; left: 10%; width:22%; border-color:cyan; border-style:solid;"></img>
+			<img id="air_3" class="content-hidden" style="position : absolute; top: 25%; left: 10%; width:25%; border-color:cyan; border-style:solid;"></img>
+			<img id="air_4" class="content-hidden" style="position : absolute; top: 25%; left: 2%; width:40%; border-color:cyan; border-style:solid;"></img>
+			
+			<div id="info" style="position : absolute; top: 25%; left: 45%;">
+				<p></p>
+				<p></p>
+				<p></p>
+			</div>	
+		</div>
+		
+	</div>
+	
+	<div id="end" class="content-hidden" style="position : absolute; height:60% ; width:60%;  z-index:2000; top:7%; left:6%;  border-color:white; border-style:solid;  overflow:hidden; background:black; color:white;">
+			<p id="hint" style="text-align:center; font-size:12vmin;">Game Over</p>
+			<button id="replay" style="position:absolute; top:70%; left:40%">再玩一次</button>
+	</div>
+</div>
+</div>
+
+<div style="position: absolute; bottom: 1%; width: 98%; text-align: center; font-family:Arial;">Copyright © 2014-2022 crescent3983</div>
+</body>
+</html>
