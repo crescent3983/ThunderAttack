@@ -88,3 +88,11 @@ button:hover {
 	font-family:微軟正黑體;
 	color:lime;
 }
+
+.github {
+    color: #24292f;
+    background-color: #ebf0f4;
+	padding: 4px 5px;
+	border-radius: .25em;
+	text-decoration: none;
+}
